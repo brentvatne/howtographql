@@ -1,10 +1,7 @@
 ---
 title: Getting Started
-pageTitle: "Getting Started with GraphQL, React & Apollo Tutorial"
-description: Start building a Hackernews clone. Create the frontend with create-react-app and the backend with Graphcool.
-videoId: JV0nLsdeMfo
-duration: 4
-videoAuthor: "Abhi Aiyer"
+pageTitle: "Getting Started with GraphQL, Expo & Apollo Tutorial"
+description: Start building a Hacker News clone. Create the frontend with create-react-native-app and the backend with Graphcool.
 question: Which are the two types that you find in every Graphcool project file?
 answers: ["File & System", "Query & Mutation", "User & Group", "File & User"]
 correctAnswer: 3
@@ -44,14 +41,14 @@ For starting out, you're not going to use the full data model that you saw above
 
 For now, you'll just use the `Link` type to create the backend.
 
-The first thing you need to do to get your GraphQL server is install the Graphcool CLI with npm.
+The first thing you need to do to get your GraphQL server is install the Graphcool CLI with yarn.
 
 <Instruction>
 
 Open up a terminal window and type the following:
 
 ```bash
-npm install -g graphcool
+yarn global add graphcool
 ```
 
 </Instruction>
@@ -213,14 +210,14 @@ If everything went well, the query will return the following data:
 
 #### Creating the App
 
-Next, you are going to create the React project! As mentioned in the beginning, you'll use `create-react-app` for that.
+Next, you are going to create the React project! As mentioned in the beginning, you'll use `create-react-native-app` for that.
 
 <Instruction>
 
-If you haven't already, you need to install `create-react-app` using npm:
+If you haven't already, you need to install `create-react-native-app` using yarn:
 
 ```bash
-npm install -g create-react-app
+yarn global add create-react-native-app
 ```
 
 </Instruction>
@@ -230,131 +227,176 @@ npm install -g create-react-app
 Next, you can use it to bootstrap your React application:
 
 ```bash
-create-react-app hackernews-react-apollo
+create-react-native-app hackernews-expo-apollo
 ```
 
 </Instruction>
 
-This will create a new directory called `hackernews-react-apollo` that has all the basic configuration setup. 
+This will create a new directory called `hackernews-expo-apollo` that has all the basic configuration setup. 
 
 Make sure everything works by navigating into the directory and starting the app:
 
 ```bash
-cd hackernews-react-apollo
+cd hackernews-expo-apollo
 yarn start
 ```
 
-This will open a browser and navigate to `http://localhost:3000` where the app is running. If everything went well, you'll see the following:
+If everything went well, this will start up the React Native packager and print a QR code in your terminal:
 
-![](http://imgur.com/Yujwwi6.png)
+![](https://imgur.com/a/NDVZk.png)
 
+
+If this does not happen, please search the [create-react-native-app issues](https://github.com/react-community/create-react-native-app/issues) for the error message that you encountered.
+
+To open the app on your phone or tablet: download the Expo client on your phone or tablet from the [Google Play Store](https://play.google.com/store/apps/details?id=host.exp.exponent&referrer=www) or [Apple App Store](https://itunes.apple.com/app/apple-store/id982107779?ct=www&mt=8). While the app is downloading, make sure that your phone is on the same wifi network as your computer. Once you have downloaded the app, open it and scan the QR code using the Expo client's QR code scanner.
+
+To open the app in the iOS simulator: if you have it set up on your machine already (macOS only), press `i` in the terminal prompt to open your app in the simulator.
+
+To open the app in an Android emulator: only [Genymotion](https://www.genymotion.com/fun-zone/) is supported, [read this guide](https://docs.expo.io/versions/latest/guides/genymotion.html) to configure Genymotion once you have installed it. When everything is set up, open your virtual device then switch back to the terminal prompt and press `a` to open your app in the emulator.
+
+If everything went well, you'll see the following on your device:
+
+![](https://imgur.com/a/eI2Xk.png)
 
 <Instruction>
 
-Next, go ahead move `project.graphcool` into the `hackernews-react-apollo` directory to manage everything in one place.
+Next, go ahead move `project.graphcool` into the `hackernews-expo-apollo` directory to manage everything in one place.
 
-To improve the project structure, move on to create two directories, both inside the `src` folder. The first is called `components` and will hold all our React components. Call the second one `styles`, that one is for all the CSS files you'll use.
-
-Now clean up the existing files accordingly. Move `App.js` into `components` and `App.css` as well as `index.css` into `styles`.
+To improve the project structure, lets create a few directories. The first is called `components` and will hold all our React components. Call the second one `constants`, that one will keep various strings in one place rather than littering them through the application. Lastly, let's create the utils directory.
 
 </Instruction>
-
 
 Your project structure should now look as follows:
 
 ```bash(nocopy)
 .
+├── App.js
+├── App.test.js
 ├── README.md
+├── app.json
+├── components
+├── constants
 ├── node_modules
-├── project.graphcool
 ├── package.json
-├── public
-│   ├── favicon.ico
-│   ├── index.html
-│   └── manifest.json
-├── src
-│   ├── App.test.js
-│   ├── components
-│   │   └── App.js
-│   ├── index.js
-│   ├── logo.svg
-│   ├── registerServiceWorker.js
-│   └── styles
-│       ├── App.css
-│       └── index.css
+├── project.graphcool
+├── utils
 └── yarn.lock
 ```
 
-#### Prepare Styling
+#### Add utilities
 
-This tutorial is about the concepts of GraphQL and how you can use it from within a React application, so we want to spend the least time on styling issues. To ease up usage of CSS in this project, you'll use the [Tachyons](http://tachyons.io/) library which provides a number of CSS classes.
-
-<Instruction>
-
-Open `public/index.html` and add a third `link` tag right below the two existing ones that pulls in Tachyons:
-
-```html{3}(path=".../hackernews-react-apollo/public/index.html")
-<link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-<link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-<link rel="stylesheet" href="https://unpkg.com/tachyons@4.2.1/css/tachyons.min.css"/>
-```
-
-</Instruction>
-
-Since we still want to have a bit more custom styling here and there, we also prepared some styles for you that you need to include in the project.
+This tutorial is about the concepts of GraphQL and how you can use it from within a React Native application, so we will provide some code for you upfront that is useful to make the examples more organized and readable.
 
 <Instruction>
 
-Open `index.css` and replace its content with the following:
+Create `constants/Colors.js` and paste the following:
 
-```css(path=".../hackernews-react-apollo/src/styles/index.css")
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Verdana, Geneva, sans-serif;
-}
+```js(path=".../hackernews-expo-apollo/constants/Colors.js")
+export default {
+  almostWhite: '#f9f9f9',
+  almostWhiteDarkened: '#f6f6f6',
+  backgroundGrey: '#e8e8e8',
+  black: '#000',
+  darkGrey: '#888',
+  darkOrange: '#e64a19',
+  grey: '#dcdcdc',
+  lightGrey: '#eee',
+  mediumGrey: '#a6a6a6',
+  orange: '#ff5722',
+  white: '#fff',
+};
+```
 
-input {
-  max-width: 500px;
-}
+Create `constants/Graphcool.js` and paste the following:
 
-.gray {
-  color: #828282;
-}
+```js(path=".../hackernews-expo-apollo/constants/Graphcool.js")
+export default {
+  simpleEndpoint: '__SIMPLE_API_ENDPOINT__',
+  subscriptionEndpoint: '__SUBSCRIPTION_API_ENDPOINT__',
+};
+```
 
-.orange {
-  background-color: #ff6600;
-}
+Create `utils/getNavigationParam.js` and paste the following:
 
-.background-gray {
-  background-color: rgb(246,246,239);
-}
+```js(path=".../hackernews-expo-apollo/utils/getNavigationParam.js")
+export default function getNavigationParam(navigation, param, fallback = null) {
+  let result = fallback;
+  if (navigation.state && navigation.state.params) {
+    if (navigation.state.params.hasOwnProperty(param)) {
+      result = navigation.state.params[param];
+    }
+  }
 
-.f11 {
-  font-size: 11px;
-}
-
-.w85 {
-  width: 85%;
-}
-
-.button {
-  font-family: monospace;
-  font-size: 10pt;
-  color: black;
-  background-color: buttonface;
-  text-align: center;
-  padding: 2px 6px 3px;
-  border-width: 2px;
-  border-style: outset;
-  border-color: buttonface;
-  cursor: pointer;
-  max-width: 250px;
+  return result;
 }
 ```
 
-</Instruction>
+Create `utils/timeDifferenceForDate.js` and paste the following:
 
+```js(path=".../hackernews-expo-apollo/utils/timeDifferenceForDate.js")
+function timeDifference(current, previous) {
+  const milliSecondsPerMinute = 60 * 1000;
+  const milliSecondsPerHour = milliSecondsPerMinute * 60;
+  const milliSecondsPerDay = milliSecondsPerHour * 24;
+  const milliSecondsPerMonth = milliSecondsPerDay * 30;
+  const milliSecondsPerYear = milliSecondsPerDay * 365;
+
+  const elapsed = current - previous;
+
+  if (elapsed < milliSecondsPerMinute / 3) {
+    return 'just now';
+  }
+
+  if (elapsed < milliSecondsPerMinute) {
+    return 'less than 1 min ago';
+  } else if (elapsed < milliSecondsPerHour) {
+    return Math.round(elapsed / milliSecondsPerMinute) + ' min ago';
+  } else if (elapsed < milliSecondsPerDay) {
+    return Math.round(elapsed / milliSecondsPerHour) + ' h ago';
+  } else if (elapsed < milliSecondsPerMonth) {
+    let days = Math.round(elapsed / milliSecondsPerDay);
+    return `${days} day${days > 1 ? 's' : ''} ago`;
+  } else if (elapsed < milliSecondsPerYear) {
+    return Math.round(elapsed / milliSecondsPerMonth) + ' mo ago';
+  } else {
+    return Math.round(elapsed / milliSecondsPerYear) + ' years ago';
+  }
+}
+
+export default function timeDifferenceForDate(date) {
+  const now = new Date().getTime();
+  const updated = new Date(date).getTime();
+  return timeDifference(now, updated);
+}
+```
+
+Create `utils/url.js` and paste the following:
+
+```js(path=".../hackernews-expo-apollo/utils/url.js")
+import urlParse from 'url-parse';
+
+export function maybeAddProtocol(url, defaultProtocol = 'https') {
+  let parsed = urlParse(url);
+  if (!parsed.protocol) {
+    parsed.set('protocol', defaultProtocol);
+    parsed.set('slashes', true);
+  }
+
+  return parsed.toString();
+}
+
+export function getHostname(url) {
+  return urlParse(maybeAddProtocol(url)).hostname || url;
+}
+```
+
+Next, install `url-parse`, a dependency we are using in our utils.
+
+```bash(path=".../hackernews-expo-apollo")
+yarn add url-parse
+```
+
+</Instruction>
 
 
 #### Installing Apollo
@@ -363,7 +405,7 @@ input {
 
 Next, you need to pull in the functionality of Apollo Client which is all bundled in the `react-apollo` package:
 
-```bash(path=".../hackernews-react-apollo")
+```bash(path=".../hackernews-expo-apollo")
 yarn add react-apollo
 ```
 
@@ -379,50 +421,63 @@ The first thing you have to do when using Apollo is configure your `ApolloClient
 
 <Instruction>
 
-Open `src/index.js` and replace the contents with the following:
+Open `App.js` and replace the contents with the following:
 
-```js{6-7,9-12,14-17,19-25}(path="src/index.js")
-import React from 'react'
-import ReactDOM from 'react-dom'
-import App from './components/App'
-import registerServiceWorker from './registerServiceWorker'
-import './styles/index.css'
+```js{3-8,12-15,17-18,20-31}(path="App.js")
+import React from 'react';
+
 // 1
-import { ApolloProvider, createNetworkInterface, ApolloClient } from 'react-apollo'
+import {
+  ApolloProvider,
+  createNetworkInterface,
+  ApolloClient,
+} from 'react-apollo';
+
+import Graphcool from './constants/Graphcool';
 
 // 2
 const networkInterface = createNetworkInterface({
-  uri: '__SIMPLE_API_ENDPOINT__'
-})
+  uri: Graphcool.simpleEndpoint,
+});
 
 // 3
-const client = new ApolloClient({
-  networkInterface
-})
+const client = new ApolloClient({ networkInterface });
 
 // 4
-ReactDOM.render(
-  <ApolloProvider client={client}>
-    <App />
-  </ApolloProvider>
-  , document.getElementById('root')
-)
-registerServiceWorker()
+export default class App extends React.Component {
+  render() {
+    return (
+      <ApolloProvider client={client}>
+        <View style={styles.container}>
+          <Text>Hello GraphQL!</Text>
+        </View>
+      </ApolloProvider>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
+
+
 ```
 
 </Instruction>
 
-
-> Note: The project that was generated by `create-react-app` uses semicolons and double quotes for strings. All the code that you're going to add will use **no semicolons** and **single quotes**.
-
 Let's try to understand what's going on in that code snippet:
 
 1. You're importing the required dependencies from the `react-apollo` package
-2. Here you create the `networkInterface`, you'll replace the placeholder `__SIMPLE_API_ENDPOINT__` with your actual endpoint in a bit.
+2. Here you create the `networkInterface`, we'll update `constants/Graphcool.js` soon with your actual endpoint.
 3. Now you instantiate the `ApolloClient` by passing in the `networkInterface`.
 4. Finally you render the root component of your React app. The `App` is wrapped with the higher-order component `ApolloProvider` that gets passed the `client` as a prop.
 
-Next you need to replace the placeholder for the GraphQL endpoint with your actual endpoint. But where do you get your endpoint from?
+Next you need to replace the placeholder in `constants/Graphcool.js` for the GraphQL endpoint with your actual endpoint. But where do you get your endpoint from?
 
 There are two ways for you to get your endpoint. You can either open the [Graphcool Console](https://console.graph.cool) and click the _Endoints_-button in the bottom-left corner. The second option is to use the CLI.
 
@@ -438,7 +493,7 @@ graphcool endpoints
 
 <Instruction>
 
-Copy the endpoint for the `Simple API` and paste it into `src/index.js` to replace the current placeholder `__SIMPLE_API_ENDPOINT__`.
+Copy the endpoint for the `Simple API` and paste it into `constants/Graphcool.js` to replace the current placeholder `__SIMPLE_API_ENDPOINT__`.
 
 </Instruction>
 

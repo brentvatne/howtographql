@@ -28,10 +28,9 @@ const data: Stack[] = [
     content: {
       title: 'Expo + Apollo',
       description:
-        "Get started with React and Facebook's homegrown GraphQL client Relay on the frontend",
+        'Get started with React Native and Apollo Client on the frontend',
     },
-    authorName: 'Bent Vatne',
-    comingSoon: true,
+    authorName: 'Brent Vatne'
   },
   {
     title: 'Ember + Apollo',

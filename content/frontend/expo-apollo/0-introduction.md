@@ -2,7 +2,6 @@
 title: Introduction
 pageTitle: "Fullstack Tutorial with GraphQL, React Native & Apollo"
 description: "Learn how to build a Hacker News clone with GraphQL, React Native & Apollo Client. You'll use create-react-native-app for the frontend and Graphcool for the backend."
-duration: 5
 question: What's a major benefit of using a GraphQL client library?
 answers: ["It makes it easy to use animations inside your app", "A GraphQL client is mainly used to improve security", "It saves you from writing infrastructure code for networking and caching", "GraphQL clients don't provide actual advantages but it's always good to use 3rd party libraries"]
 correctAnswer: 2
@@ -25,6 +24,7 @@ In this track, you'll use the following technologies for building the app:
 
 - Frontend:
     - [React Native](https://facebook.github.io/react-native/): Frontend framework for building user interfaces
+    - [Expo](https://expo.io/): Builds on top of React Native to provide a wider set of APIs and more web-like development experience. [Read more about how Expo relates to React Native](https://stackoverflow.com/questions/39170622/what-is-the-difference-between-expo-and-react-native/39170715#39170715)
     - [Apollo Client](https://github.com/apollographql/apollo-client): Fully-featured, production ready caching GraphQL client
 - Backend:
     - [Graphcool](https://www.graph.cool/): Flexible backend platform combining GraphQL + Serverless
